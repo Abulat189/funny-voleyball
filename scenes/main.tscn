@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://o2abu4jq7iq0"]
+
+[ext_resource type="Script" path="res://scripts/player1movement.gd" id="1_osrfo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iaydk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_diwdw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwh44"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1dfn6"]
+
+[node name="main" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.0078)
+fov = 84.375
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.2278)
+light_energy = 16.0
+spot_range = 4096.0
+
+[node name="player1" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12001, 0)
+script = ExtResource("1_osrfo")
+
+[node name="player1collisionshape" type="CollisionShape3D" parent="player1"]
+shape = SubResource("CapsuleShape3D_iaydk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="player1"]
+mesh = SubResource("CapsuleMesh_diwdw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(40, 0, 0, 0, 6, 0, 0, 0, 40, 0, -4.2241, 0)
+shape = SubResource("BoxShape3D_rwh44")
+
+[node name="stadium" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -1.2236, 0)
+mesh = SubResource("PlaneMesh_1dfn6")
+skeleton = NodePath("../..")
